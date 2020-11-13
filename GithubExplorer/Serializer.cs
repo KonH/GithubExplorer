@@ -6,7 +6,9 @@ namespace GithubExplorer {
 	public sealed class Serializer {
 		readonly Dictionary<string, Func<object, string>> _serializers =
 			new Dictionary<string, Func<object, string>> {
-				["json"] = o => JsonSerializer.Serialize(o)
+				["json"] = o => JsonSerializer.Serialize(o, new JsonSerializerOptions {
+					WriteIndented = true
+				})
 			};
 
 		public string Serialize(object source, string format) =>
