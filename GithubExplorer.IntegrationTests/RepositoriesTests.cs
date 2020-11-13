@@ -14,7 +14,7 @@ namespace GithubExplorer.IntegrationTests {
 			var repositories = (await explorer.GetRepositories(UserName)).ToArray();
 
 			repositories.Should().NotBeEmpty();
-			repositories.Should().Contain("konh.github.io");
+			repositories.Should().Contain(r => r.Name == "konh.github.io");
 		}
 	}
 }
