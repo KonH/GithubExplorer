@@ -5,6 +5,15 @@ branches:
   only:
     - master
 
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
 before_build:
 - nuget restore
 - choco install opencover.portable
@@ -16,6 +25,12 @@ build_script:
 test_script:
 - OpenCover.Console.exe -register -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full GithubExplorer.IntegrationTests/GithubExplorer.IntegrationTests.csproj" -filter:"+[GithubExplorer*]* -[GithubExplorer.IntegrationTests*]*" -output:".\GithubExplorer_coverage.xml" -log:Verbose -oldstyle -returntargetcode
 - codecov -f "GithubExplorer_coverage.xml"
+
+deploy_script:
+- dotnet pack -c Release
+- ps: $buildNumber = $env:APPVEYOR_BUILD_VERSION
+- ps: $nugetFile = "GitHubExplorer.CommandLine/nupkg/GithubExplorer.CommandLine." + $buildNumber + ".nupkg"
+- ps: nuget push $nugetFile -ApiKey $env:NUGET_API_KEY -Source https://www.nuget.org/api/v2/package
 
 artifacts:
   - path: "GithubExplorer_coverage.xml"
