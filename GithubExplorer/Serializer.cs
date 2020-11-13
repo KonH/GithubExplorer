@@ -9,9 +9,9 @@ namespace GithubExplorer {
 				["json"] = o => JsonSerializer.Serialize(o)
 			};
 
-		public string Serialize(object source, string method) =>
-			_serializers.TryGetValue(method, out var serializer)
+		public string Serialize(object source, string format) =>
+			_serializers.TryGetValue(format, out var serializer)
 				? serializer(source)
-				: throw new ArgumentException("Provided method is not supported", nameof(method));
+				: throw new ArgumentException("Provided format is not supported", nameof(format));
 	}
 }
