@@ -1,0 +1,6 @@
+version: 0.1.{build}
+image: Visual Studio 2019
+build_script:
+- pwsh: dotnet build
+test_script:
+- pwsh: dotnet test
