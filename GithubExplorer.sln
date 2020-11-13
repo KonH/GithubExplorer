@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubExplorer", "GithubExplorer\GithubExplorer.csproj", "{1828E861-60ED-4563-AD8C-5930F7D04825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubExplorer.IntegrationTests", "GithubExplorer.IntegrationTests\GithubExplorer.IntegrationTests.csproj", "{DF10AEAD-8784-4442-9F79-359C82C16188}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1828E861-60ED-4563-AD8C-5930F7D04825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1828E861-60ED-4563-AD8C-5930F7D04825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1828E861-60ED-4563-AD8C-5930F7D04825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1828E861-60ED-4563-AD8C-5930F7D04825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF10AEAD-8784-4442-9F79-359C82C16188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF10AEAD-8784-4442-9F79-359C82C16188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF10AEAD-8784-4442-9F79-359C82C16188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF10AEAD-8784-4442-9F79-359C82C16188}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
