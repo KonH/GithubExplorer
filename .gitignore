@@ -1,5 +1,6 @@
 .idea
 *.user
+.DS_Store
 GithubExplorer/bin
 GithubExplorer/obj
 GithubExplorer.IntegrationTests/bin
