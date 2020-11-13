@@ -1,5 +1,7 @@
 # Github Explorer
 
+[![Build status](https://ci.appveyor.com/api/projects/status/kpkcc3urwdbv0819?svg=true)](https://ci.appveyor.com/project/KonH/githubexplorer)
+
 ## Description
 
 Simple terminal wrapper to retrieve small information subset using Github API and serialize it.
