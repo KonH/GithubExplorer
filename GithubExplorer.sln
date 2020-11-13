@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubExplorer", "GithubExp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubExplorer.IntegrationTests", "GithubExplorer.IntegrationTests\GithubExplorer.IntegrationTests.csproj", "{DF10AEAD-8784-4442-9F79-359C82C16188}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubExplorer.CommandLine", "GithubExplorer.CommandLine\GithubExplorer.CommandLine.csproj", "{17BFD9A6-B211-4CF1-8A53-B4DF13B779C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DF10AEAD-8784-4442-9F79-359C82C16188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF10AEAD-8784-4442-9F79-359C82C16188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF10AEAD-8784-4442-9F79-359C82C16188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BFD9A6-B211-4CF1-8A53-B4DF13B779C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BFD9A6-B211-4CF1-8A53-B4DF13B779C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BFD9A6-B211-4CF1-8A53-B4DF13B779C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BFD9A6-B211-4CF1-8A53-B4DF13B779C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
