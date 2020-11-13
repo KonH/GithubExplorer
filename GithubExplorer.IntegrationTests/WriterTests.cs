@@ -1,5 +1,6 @@
 using System.IO;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace GithubExplorer.IntegrationTests {
@@ -15,8 +16,10 @@ namespace GithubExplorer.IntegrationTests {
 
 		[Test]
 		public void IsFileSaved() {
-			var expectedString = "test";
-			var writer = new Writer();
+			const string expectedString = "test";
+
+			var services = Startup.Build();
+			var writer   = services.GetRequiredService<Writer>();
 
 			writer.Write(FilePath, expectedString);
 

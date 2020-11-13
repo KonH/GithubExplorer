@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using CommandLine;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GithubExplorer.CommandLine {
 	sealed class Program {
@@ -23,12 +24,13 @@ namespace GithubExplorer.CommandLine {
 				.WithParsedAsync(o => new Program(o).Execute());
 		}
 
-		readonly Dictionary<string, Func<Options, Task>> _targets = new Dictionary<string, Func<Options, Task>> {
-			["repositories"] = o => {
-				var useCase = new RepositoriesUseCase();
-				return useCase.Handle(o.Username, o.Format, o.Output);
-			}
-		};
+		readonly Dictionary<string, Func<IServiceProvider, Options, Task>> _targets =
+			new Dictionary<string, Func<IServiceProvider, Options, Task>> {
+				["repositories"] = (s, o) => {
+					var useCase = s.GetRequiredService<RepositoriesUseCase>();
+					return useCase.Handle(o.Username, o.Format, o.Output);
+				}
+			};
 
 		readonly Options _options;
 
@@ -41,7 +43,8 @@ namespace GithubExplorer.CommandLine {
 				if ( !_targets.TryGetValue(_options.Target, out var target) ) {
 					throw new ArgumentException("Provided target is not supported", nameof(target));
 				}
-				await target(_options);
+				var services = Startup.Build();
+				await target(services, _options);
 				return 0;
 			} catch ( Exception e ) {
 				Console.WriteLine(e);

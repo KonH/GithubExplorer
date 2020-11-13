@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace GithubExplorer.IntegrationTests {
@@ -9,7 +10,8 @@ namespace GithubExplorer.IntegrationTests {
 
 		[Test]
 		public async Task IsRepositoriesFound() {
-			var explorer = new Explorer();
+			var services = Startup.Build();
+			var explorer = services.GetRequiredService<Explorer>();
 
 			var repositories = (await explorer.GetRepositories(UserName)).ToArray();
 

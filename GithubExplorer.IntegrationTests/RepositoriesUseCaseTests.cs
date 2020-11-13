@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace GithubExplorer.IntegrationTests {
@@ -17,7 +18,8 @@ namespace GithubExplorer.IntegrationTests {
 
 		[Test]
 		public async Task IsResultFound() {
-			var useCase = new RepositoriesUseCase();
+			var services = Startup.Build();
+			var useCase  = services.GetRequiredService<RepositoriesUseCase>();
 
 			await useCase.Handle(UserName, "json", FilePath);
 
