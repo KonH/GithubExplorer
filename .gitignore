@@ -1,0 +1,6 @@
+.idea
+GithubExplorer/bin
+GithubExplorer/obj
+GithubExplorer.IntegrationTests/bin
+GithubExplorer.IntegrationTests/obj
+*.user
