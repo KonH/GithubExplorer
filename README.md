@@ -7,14 +7,20 @@
 ## Description
 
 Simple terminal wrapper to retrieve small information subset using Github API and serialize it.
+This tool can be installed as .NET Core Global Tool, manual build is not required.
+
+## Installation
+
+```
+dotnet tool install --global GithubExplorer.CommandLine
+```
 
 ## Usage
 
 ### Repositories
 
 ```
-cd GithubExplorer.CommandLine
-dotnet run --target repositories --username %USER% --output repositories.json
+github_explorer --target repositories --username %USER% --output repositories.json
 ```
 ```
 info: GithubExplorer.Explorer[0]
