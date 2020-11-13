@@ -12,6 +12,16 @@ Simple terminal wrapper to retrieve small information subset using Github API an
 cd GithubExplorer.CommandLine
 dotnet run --target repositories --username %USER% --output repositories.json
 ```
+```
+info: GithubExplorer.Explorer[0]
+      Retrieving user information for '...'
+info: GithubExplorer.Explorer[0]
+      Retrieving repositories for '...'
+info: GithubExplorer.Explorer[0]
+      Found ... repositories for '...'
+info: GithubExplorer.Writer[0]
+      Result saved into 'repositories.json'
+```
 
 => repositories.json:
 ```
