@@ -14,5 +14,8 @@ build_script:
 - dotnet build
 
 test_script:
-- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -output:".\GithubExplorer_coverage.xml" -oldstyle
+- OpenCover.Console.exe -register -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full GithubExplorer.IntegrationTests/GithubExplorer.IntegrationTests.csproj" -filter:"+[GithubExplorer*]* -[GithubExplorer.IntegrationTests*]*" -output:".\GithubExplorer_coverage.xml" -log:Verbose -oldstyle -returntargetcode
 - codecov -f "GithubExplorer_coverage.xml"
+
+artifacts:
+  - path: "GithubExplorer_coverage.xml"
