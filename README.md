@@ -1,6 +1,7 @@
 # Github Explorer
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kpkcc3urwdbv0819?svg=true)](https://ci.appveyor.com/project/KonH/githubexplorer)
+[![codecov](https://codecov.io/gh/KonH/GithubExplorer/branch/master/graph/badge.svg)](https://codecov.io/gh/KonH/GithubExplorer)
 
 ## Description
 
