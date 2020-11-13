@@ -4,7 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 
 namespace GithubExplorer.IntegrationTests {
-	public sealed class RepositoriesTests {
+	public sealed class ExplorerTests {
 		const string UserName = "KonH";
 
 		[Test]
