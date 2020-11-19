@@ -13,11 +13,12 @@ namespace GithubExplorer {
 			_client = new GitHubClient(new ProductHeaderValue("KonH-GithubExplorer"));
 		}
 
-		async Task<User> GetUser(string userName) =>
-			await _client.User.Get(userName);
+		async Task<User> GetUser(string userName) {
+			_logger.LogInformation($"Retrieving user information for '{userName}'");
+			return await _client.User.Get(userName);
+		}
 
 		public async Task<IEnumerable<Repository>> GetRepositories(string userName) {
-			_logger.LogInformation($"Retrieving user information for '{userName}'");
 			var user = await GetUser(userName);
 			_logger.LogInformation($"Retrieving repositories for '{userName}'");
 			var result = await _client.Repository.GetAllForUser(user.Login);
