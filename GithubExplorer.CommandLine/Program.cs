@@ -15,8 +15,6 @@ namespace GithubExplorer.CommandLine {
 			public string Username { get; set; }
 			[Option('o', "output", HelpText = "Filepath to save results", Required = true)]
 			public string Output   { get; set; }
-			[Option('f', "format", HelpText = "Result format (only json supported for now)", Default = "json")]
-			public string Format   { get; set; }
 		}
 
 		static async Task Main(string[] args) {
@@ -28,11 +26,11 @@ namespace GithubExplorer.CommandLine {
 			new Dictionary<string, Func<IServiceProvider, Options, Task>> {
 				["repositories"] = (s, o) => {
 					var useCase = s.GetRequiredService<RepositoriesUseCase>();
-					return useCase.Handle(o.Username, o.Format, o.Output);
+					return useCase.Handle(o.Username, o.Output);
 				},
 				["pullrequests"] = (s, o) => {
 					var useCase = s.GetRequiredService<PullRequestsUseCase>();
-					return useCase.Handle(o.Username, o.Format, o.Output);
+					return useCase.Handle(o.Username, o.Output);
 				}
 			};
 

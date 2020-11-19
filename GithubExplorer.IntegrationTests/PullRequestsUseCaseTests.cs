@@ -21,7 +21,7 @@ namespace GithubExplorer.IntegrationTests {
 			var services = Startup.Build();
 			var useCase  = services.GetRequiredService<PullRequestsUseCase>();
 
-			await useCase.Handle(UserName, "json", FilePath);
+			await useCase.Handle(UserName, FilePath);
 
 			var json = await File.ReadAllTextAsync(FilePath);
 			json.Should().Contain("Adds DynamicShould.Throw method to cover corner case");
