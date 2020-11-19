@@ -21,7 +21,8 @@ namespace GithubExplorer.IntegrationTests {
 			var services = Startup.Build();
 			var useCase  = services.GetRequiredService<PullRequestsUseCase>();
 
-			await useCase.Handle(UserName, FilePath);
+			// Filter is required, because of broken serialization (StringEnum members throw exceptions)
+			await useCase.Handle(UserName, FilePath, "Title;CreatedAt");
 
 			var json = await File.ReadAllTextAsync(FilePath);
 			json.Should().Contain("Adds DynamicShould.Throw method to cover corner case");

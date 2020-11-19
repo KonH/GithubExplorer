@@ -12,9 +12,9 @@ namespace GithubExplorer {
 			_writer     = writer;
 		}
 
-		public async Task Handle(string userName, string output) {
+		public async Task Handle(string userName, string output, string filter) {
 			var issues = await _explorer.GetPullRequests(userName);
-			var data   = _serializer.Serialize(issues);
+			var data   = _serializer.Serialize(issues, filter);
 			_writer.Write(output, data);
 		}
 	}

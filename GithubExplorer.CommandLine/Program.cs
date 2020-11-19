@@ -15,6 +15,8 @@ namespace GithubExplorer.CommandLine {
 			public string Username { get; set; }
 			[Option('o', "output", HelpText = "Filepath to save results", Required = true)]
 			public string Output   { get; set; }
+			[Option('f', "filter", HelpText = "Filter to select subset of properties from the result", Required = false)]
+			public string Filter  { get; set; }
 		}
 
 		static async Task Main(string[] args) {
@@ -26,11 +28,11 @@ namespace GithubExplorer.CommandLine {
 			new Dictionary<string, Func<IServiceProvider, Options, Task>> {
 				["repositories"] = (s, o) => {
 					var useCase = s.GetRequiredService<RepositoriesUseCase>();
-					return useCase.Handle(o.Username, o.Output);
+					return useCase.Handle(o.Username, o.Output, o.Filter);
 				},
 				["pullrequests"] = (s, o) => {
 					var useCase = s.GetRequiredService<PullRequestsUseCase>();
-					return useCase.Handle(o.Username, o.Output);
+					return useCase.Handle(o.Username, o.Output, o.Filter);
 				}
 			};
 

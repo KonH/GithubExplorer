@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GithubExplorer {
@@ -12,9 +13,9 @@ namespace GithubExplorer {
 			_writer     = writer;
 		}
 
-		public async Task Handle(string userName, string output) {
+		public async Task Handle(string userName, string output, string filter) {
 			var repositories = await _explorer.GetRepositories(userName);
-			var data         = _serializer.Serialize(repositories);
+			var data         = _serializer.Serialize(repositories.ToArray(), filter);
 			_writer.Write(output, data);
 		}
 	}

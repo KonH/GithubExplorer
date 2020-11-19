@@ -35,7 +35,7 @@ info: GithubExplorer.Writer[0]
 
 => repositories.json:
 ```
-
+[
   {
     "Url": "https://api.github.com/repos/...",
     "HtmlUrl": "https://github.com/...",
@@ -52,4 +52,30 @@ info: GithubExplorer.Writer[0]
     "Name": "...",
     ...
   },
+  ...
+]
+```
+
+### Pull requests
+
+**Attention!** Filter here is required, serialization breaks without specifying safe properties (at least not selecting StringEnum based ones).
+
+```
+github_explorer -t pullrequests -u %USER% -o pull_requests.json --filter "Title;CreatedAt"
+```
+```
+info: GithubExplorer.Explorer[0]
+      Found ... pull requests for '...'
+info: GithubExplorer.Writer[0]
+      Result saved into 'pull_requests.json'
+```
+=> pull_requests.json:
+```
+[
+  {
+    "Title": "Circular buffer yields on single-core machines",
+    "CreatedAt": "2020-10-29T23:49:30+00:00"
+  },
+  ...
+]
 ```
