@@ -25,5 +25,15 @@ namespace GithubExplorer {
 			_logger.LogInformation($"Found {result.Count} repositories for '{userName}'");
 			return result;
 		}
+
+		public async Task<IReadOnlyList<Issue>> GetPullRequests(string userName) {
+			var request = new SearchIssuesRequest {
+				Type   = IssueTypeQualifier.PullRequest,
+				Author = userName
+			};
+			var result = (await _client.Search.SearchIssues(request)).Items;
+			_logger.LogInformation($"Found {result.Count} pull requests for '{userName}'");
+			return result;
+		}
 	}
 }

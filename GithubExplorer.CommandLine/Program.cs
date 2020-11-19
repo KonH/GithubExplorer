@@ -29,6 +29,10 @@ namespace GithubExplorer.CommandLine {
 				["repositories"] = (s, o) => {
 					var useCase = s.GetRequiredService<RepositoriesUseCase>();
 					return useCase.Handle(o.Username, o.Format, o.Output);
+				},
+				["pullrequests"] = (s, o) => {
+					var useCase = s.GetRequiredService<PullRequestsUseCase>();
+					return useCase.Handle(o.Username, o.Format, o.Output);
 				}
 			};
 

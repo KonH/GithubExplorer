@@ -12,6 +12,7 @@ namespace GithubExplorer {
 			services.AddScoped<Writer>();
 
 			services.AddScoped<RepositoriesUseCase>();
+			services.AddScoped<PullRequestsUseCase>();
 		}
 
 		public static IServiceProvider Build() {
