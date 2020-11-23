@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Octokit;
@@ -21,20 +22,32 @@ namespace GithubExplorer {
 			return await _client.User.Get(userName);
 		}
 
-		public async Task<IEnumerable<Repository>> GetRepositories(string userName) {
+		public async Task<IEnumerable<Repository>> GetRepositories(string userName, int? maximumCount) {
 			var user = await GetUser(userName);
 			_logger.LogInformation($"Retrieving repositories for '{userName}'");
 			var result = await _client.Repository.GetAllForUser(user.Login);
+			if ( maximumCount != null ) {
+				_logger.LogInformation($"Trim actual results {result.Count} to maximum {maximumCount}");
+				result = result
+					.Take(maximumCount.Value)
+					.ToArray();
+			}
 			_logger.LogInformation($"Found {result.Count} repositories for '{userName}'");
 			return result;
 		}
 
-		public async Task<IReadOnlyList<Issue>> GetPullRequests(string userName) {
+		public async Task<IReadOnlyList<Issue>> GetPullRequests(string userName, int? maximumCount) {
 			var request = new SearchIssuesRequest {
 				Type   = IssueTypeQualifier.PullRequest,
-				Author = userName
+				Author = userName,
 			};
 			var result = (await _client.Search.SearchIssues(request)).Items;
+			if ( maximumCount != null ) {
+				_logger.LogInformation($"Trim actual results {result.Count} to maximum {maximumCount}");
+				result = result
+					.Take(maximumCount.Value)
+					.ToArray();
+			}
 			await TryEnrich(result);
 			_logger.LogInformation($"Found {result.Count} pull requests for '{userName}'");
 			return result;

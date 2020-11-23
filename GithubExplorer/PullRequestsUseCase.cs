@@ -12,8 +12,8 @@ namespace GithubExplorer {
 			_writer     = writer;
 		}
 
-		public async Task Handle(string userName, string output, string filter) {
-			var issues = await _explorer.GetPullRequests(userName);
+		public async Task Handle(string userName, string output, string filter, int? maximumCount) {
+			var issues = await _explorer.GetPullRequests(userName, maximumCount);
 			var data   = _serializer.Serialize(issues, filter);
 			_writer.Write(output, data);
 		}
