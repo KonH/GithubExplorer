@@ -21,7 +21,7 @@ namespace GithubExplorer.IntegrationTests {
 			var services = Startup.Build();
 			var useCase  = services.GetRequiredService<RepositoriesUseCase>();
 
-			await useCase.Handle(UserName, FilePath, "");
+			await useCase.Handle(TestEnvironment.GetAccessToken(), UserName, FilePath, "", null);
 
 			var json = await File.ReadAllTextAsync(FilePath);
 			json.Should().Contain("konh.github.io");

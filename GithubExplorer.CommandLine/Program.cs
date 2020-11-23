@@ -9,6 +9,8 @@ namespace GithubExplorer.CommandLine {
 	sealed class Program {
 		[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
 		sealed class Options {
+			[Option('a', "accessToken", HelpText = "Access token to use API", Required = false)]
+			public string AccessToken { get; set; }
 			[Option('t', "target", HelpText = "Target to execute (available: 'repositories')", Required = true)]
 			public string Target   { get; set; }
 			[Option('u', "username", HelpText = "Related user", Required = true)]
@@ -17,6 +19,10 @@ namespace GithubExplorer.CommandLine {
 			public string Output   { get; set; }
 			[Option('f', "filter", HelpText = "Filter to select subset of properties from the result", Required = false)]
 			public string Filter  { get; set; }
+			[Option('m', "maximumCount", HelpText = "Maximum count of results (if required)", Required = false)]
+			public string MaximumCountString { get; set; }
+
+			public int? MaximumCount => int.TryParse(MaximumCountString, out var value) ? new int?(value) : null;
 		}
 
 		static async Task Main(string[] args) {
@@ -28,11 +34,11 @@ namespace GithubExplorer.CommandLine {
 			new Dictionary<string, Func<IServiceProvider, Options, Task>> {
 				["repositories"] = (s, o) => {
 					var useCase = s.GetRequiredService<RepositoriesUseCase>();
-					return useCase.Handle(o.Username, o.Output, o.Filter);
+					return useCase.Handle(o.AccessToken, o.Username, o.Output, o.Filter, o.MaximumCount);
 				},
 				["pullrequests"] = (s, o) => {
 					var useCase = s.GetRequiredService<PullRequestsUseCase>();
-					return useCase.Handle(o.Username, o.Output, o.Filter);
+					return useCase.Handle(o.AccessToken, o.Username, o.Output, o.Filter, o.MaximumCount);
 				}
 			};
 

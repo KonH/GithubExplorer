@@ -7,6 +7,7 @@ namespace GithubExplorer {
 		static void ConfigureServices(IServiceCollection services) {
 			services.AddLogging(c => c.AddConsole());
 
+			services.AddScoped<RetryRateLimitRunner>();
 			services.AddScoped<Explorer>();
 			services.AddScoped<Serializer>();
 			services.AddScoped<Writer>();
