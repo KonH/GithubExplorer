@@ -22,10 +22,14 @@ namespace GithubExplorer.IntegrationTests {
 			var useCase  = services.GetRequiredService<PullRequestsUseCase>();
 
 			// Filter is required, because of broken serialization (StringEnum members throw exceptions)
-			await useCase.Handle(UserName, FilePath, "Title;CreatedAt");
+			await useCase.Handle(UserName, FilePath, "HtmlUrl;Title;CreatedAt;PullRequest.Merged;");
 
 			var json = await File.ReadAllTextAsync(FilePath);
-			json.Should().Contain("Adds DynamicShould.Throw method to cover corner case");
+			Assert.Multiple(() => {
+				json.Should().Contain("https://github.com/shouldly/shouldly/pull/681");
+				json.Should().Contain("Adds DynamicShould.Throw method to cover corner case");
+				json.Should().Contain("\"Merged\": true");
+			});
 		}
 	}
 }

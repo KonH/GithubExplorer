@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Octokit;
@@ -32,8 +33,27 @@ namespace GithubExplorer {
 				Author = userName
 			};
 			var result = (await _client.Search.SearchIssues(request)).Items;
+			await TryEnrich(result);
 			_logger.LogInformation($"Found {result.Count} pull requests for '{userName}'");
 			return result;
+		}
+
+		async Task TryEnrich(IReadOnlyList<Issue> issues) {
+			var prop = typeof(Issue).GetProperty(nameof(Issue.PullRequest));
+			if ( prop == null ) {
+				return;
+			}
+			foreach ( var issue in issues ) {
+				// https://api.github.com/repos/{owner}/{name}/issues/{number}
+				var url        = issue.HtmlUrl;
+				var parts      = url.Split('/');
+				var owner      = parts[^4];
+				var name       = parts[^3];
+				var repository = await _client.Repository.Get(owner, name);
+				var pr         = await _client.PullRequest.Get(repository.Id, issue.Number);
+				await Task.Delay(TimeSpan.FromSeconds(3));
+				prop.SetValue(issue, pr);
+			}
 		}
 	}
 }
