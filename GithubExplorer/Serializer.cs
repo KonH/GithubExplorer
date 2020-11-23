@@ -10,7 +10,7 @@ namespace GithubExplorer {
 			});
 
 		object TryFilter<T>(IReadOnlyCollection<T> source, string filter) {
-			var converter = PrepareConverter<T>(filter);
+			var converter = FilterConverter<T>.TryCreate(filter);
 			if ( converter == null ) {
 				return source;
 			}
@@ -19,16 +19,5 @@ namespace GithubExplorer {
 		}
 
 		object? TryFilter<T>(T source, FilterConverter<T> converter) => converter.Filter(source);
-
-		FilterConverter<T>? PrepareConverter<T>(string filter) {
-			if ( string.IsNullOrWhiteSpace(filter) ) {
-				return null;
-			}
-			var parts = filter.Split(';');
-			var type  = typeof(T);
-			var properties = type.GetProperties()
-				.Where(p => parts.Contains(p.Name));
-			return new FilterConverter<T>(properties);
-		}
 	}
 }
