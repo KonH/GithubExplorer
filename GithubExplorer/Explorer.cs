@@ -6,12 +6,14 @@ using Octokit;
 
 namespace GithubExplorer {
 	public sealed class Explorer {
-		readonly ILogger      _logger;
-		readonly GitHubClient _client;
+		readonly ILogger              _logger;
+		readonly GitHubClient         _client;
+		readonly RetryRateLimitRunner _retryRunner;
 
-		public Explorer(ILogger<Explorer> logger) {
-			_logger = logger;
-			_client = new GitHubClient(new ProductHeaderValue("KonH-GithubExplorer"));
+		public Explorer(ILogger<Explorer> logger, RetryRateLimitRunner retryRunner) {
+			_logger      = logger;
+			_retryRunner = retryRunner;
+			_client      = new GitHubClient(new ProductHeaderValue("KonH-GithubExplorer"));
 		}
 
 		async Task<User> GetUser(string userName) {
@@ -49,8 +51,8 @@ namespace GithubExplorer {
 				var parts      = url.Split('/');
 				var owner      = parts[^4];
 				var name       = parts[^3];
-				var repository = await _client.Repository.Get(owner, name);
-				var pr         = await _client.PullRequest.Get(repository.Id, issue.Number);
+				var repository = await _retryRunner.Run(() => _client.Repository.Get(owner, name));
+				var pr         = await _retryRunner.Run(() => _client.PullRequest.Get(repository.Id, issue.Number));
 				await Task.Delay(TimeSpan.FromSeconds(3));
 				prop.SetValue(issue, pr);
 			}
