@@ -13,8 +13,8 @@ namespace GithubExplorer {
 			_writer     = writer;
 		}
 
-		public async Task Handle(string userName, string output, string filter, int? maximumCount) {
-			var repositories = await _explorer.GetRepositories(userName, maximumCount);
+		public async Task Handle(string? accessToken, string userName, string output, string filter, int? maximumCount) {
+			var repositories = await _explorer.GetRepositories(accessToken, userName, maximumCount);
 			var data         = _serializer.Serialize(repositories.ToArray(), filter);
 			_writer.Write(output, data);
 		}
