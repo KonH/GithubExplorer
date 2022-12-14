@@ -16,7 +16,7 @@ namespace GithubExplorer.IntegrationTests {
 			}
 		}
 
-		[Test]
+		[Test] // Pretty fragile test case, rework it in some future (huh)
 		public async Task IsResultFound() {
 			var services = Startup.Build();
 			var useCase  = services.GetRequiredService<PullRequestsUseCase>();
@@ -27,8 +27,8 @@ namespace GithubExplorer.IntegrationTests {
 
 			var json = await File.ReadAllTextAsync(FilePath);
 			Assert.Multiple(() => {
-				json.Should().Contain("https://github.com/shouldly/shouldly/pull/681");
-				json.Should().Contain("Adds DynamicShould.Throw method to cover corner case");
+				json.Should().Contain("https://github.com/microsoft/component-detection/pull/311");
+				json.Should().Contain("Use extended log file names format to prevent collisions in concurrent builds");
 				json.Should().Contain("\"Merged\": true");
 			});
 		}
