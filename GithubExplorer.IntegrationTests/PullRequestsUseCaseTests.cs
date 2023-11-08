@@ -23,7 +23,7 @@ namespace GithubExplorer.IntegrationTests {
 
 			// Filter is required, because of broken serialization (StringEnum members throw exceptions)
 			await useCase.Handle(
-				TestEnvironment.GetAccessToken(), UserName, FilePath, "HtmlUrl;Title;CreatedAt;PullRequest.Merged;", 10);
+				TestEnvironment.GetAccessToken(), UserName, FilePath, "HtmlUrl;Title;CreatedAt;PullRequest.Merged;", 30);
 
 			var json = await File.ReadAllTextAsync(FilePath);
 			Assert.Multiple(() => {
