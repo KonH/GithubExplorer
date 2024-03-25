@@ -17,6 +17,10 @@ dotnet tool install --global GithubExplorer.CommandLine
 
 ## Usage
 
+### Access token
+
+You should have environment variable with GitHub access token with name `GH_ACCESS_TOKEN`.
+
 ### Repositories
 
 ```
